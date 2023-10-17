@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
+import core.Direction;
 import core.Pos;
 
 public class MazeExplorer {
@@ -42,7 +43,15 @@ public class MazeExplorer {
 
 	public ArrayList<MazeExplorer> getSuccessors() {
 		ArrayList<MazeExplorer> result = new ArrayList<MazeExplorer>();
-		// TODO: It should add as a successor every adjacent, unblocked neighbor square.
+		for (Direction d: Direction.values()) {
+			Pos neighbor = d.successor(location);
+			if (getM().within(neighbor)) {
+				if (!getM().blocked(neighbor, location)) {
+					result.add(new MazeExplorer(m, neighbor));
+				}
+			}
+		}
+	// TODO: It should add as a successor every adjacent, unblocked neighbor square.
 		// I added a comment for demonstration purposes.
         return result;
 	}
